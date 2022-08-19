@@ -8,9 +8,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/hashicorp/go-multierror"
 	"github.com/Eitol/terraform-internals/pkg/states/remote"
 	"github.com/Eitol/terraform-internals/pkg/states/statemgr"
+	"github.com/hashicorp/go-multierror"
 	etcdv3 "go.etcd.io/etcd/clientv3"
 	etcdv3sync "go.etcd.io/etcd/clientv3/concurrency"
 )
