@@ -4,10 +4,10 @@ import (
 	"io/ioutil"
 	"testing"
 
+	"github.com/Eitol/terraform-internals/pkg/addrs"
 	"github.com/go-test/deep"
 	"github.com/hashicorp/hcl/v2"
 	"github.com/hashicorp/hcl/v2/hclsyntax"
-	"github.com/Eitol/terraform-internals/pkg/addrs"
 )
 
 func TestProviderReservedNames(t *testing.T) {

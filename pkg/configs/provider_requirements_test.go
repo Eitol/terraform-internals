@@ -3,12 +3,12 @@ package configs
 import (
 	"testing"
 
+	"github.com/Eitol/terraform-internals/pkg/addrs"
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	version "github.com/hashicorp/go-version"
 	"github.com/hashicorp/hcl/v2"
 	"github.com/hashicorp/hcl/v2/hcltest"
-	"github.com/Eitol/terraform-internals/pkg/addrs"
 	"github.com/zclconf/go-cty/cty"
 )
 

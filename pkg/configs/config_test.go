@@ -8,12 +8,12 @@ import (
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/zclconf/go-cty/cty"
 
-	version "github.com/hashicorp/go-version"
-	"github.com/hashicorp/hcl/v2/hclsyntax"
-	svchost "github.com/hashicorp/terraform-svchost"
 	"github.com/Eitol/terraform-internals/pkg/addrs"
 	"github.com/Eitol/terraform-internals/pkg/depsfile"
 	"github.com/Eitol/terraform-internals/pkg/getproviders"
+	version "github.com/hashicorp/go-version"
+	"github.com/hashicorp/hcl/v2/hclsyntax"
+	svchost "github.com/hashicorp/terraform-svchost"
 )
 
 func TestConfigProviderTypes(t *testing.T) {
@@ -156,6 +156,12 @@ func TestConfigProviderRequirements(t *testing.T) {
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("wrong result\n%s", diff)
 	}
+}
+
+func TestConfigProviderRequirementsDuplicate(t *testing.T) {
+	_, diags := testNestedModuleConfigFromDir(t, "testdata/duplicate-local-name")
+	assertDiagnosticCount(t, diags, 3)
+	assertDiagnosticSummary(t, diags, "Duplicate required provider")
 }
 
 func TestConfigProviderRequirementsShallow(t *testing.T) {

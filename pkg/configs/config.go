@@ -5,11 +5,11 @@ import (
 	"log"
 	"sort"
 
-	version "github.com/hashicorp/go-version"
-	"github.com/hashicorp/hcl/v2"
 	"github.com/Eitol/terraform-internals/pkg/addrs"
 	"github.com/Eitol/terraform-internals/pkg/depsfile"
 	"github.com/Eitol/terraform-internals/pkg/getproviders"
+	version "github.com/hashicorp/go-version"
+	"github.com/hashicorp/hcl/v2"
 )
 
 // A Config is a node in the tree of modules within a configuration.

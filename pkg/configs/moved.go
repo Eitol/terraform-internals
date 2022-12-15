@@ -1,8 +1,8 @@
 package configs
 
 import (
-	"github.com/hashicorp/hcl/v2"
 	"github.com/Eitol/terraform-internals/pkg/addrs"
+	"github.com/hashicorp/hcl/v2"
 )
 
 type Moved struct {

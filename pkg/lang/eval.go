@@ -3,14 +3,14 @@ package lang
 import (
 	"fmt"
 
-	"github.com/hashicorp/hcl/v2"
-	"github.com/hashicorp/hcl/v2/ext/dynblock"
-	"github.com/hashicorp/hcl/v2/hcldec"
 	"github.com/Eitol/terraform-internals/pkg/addrs"
 	"github.com/Eitol/terraform-internals/pkg/configs/configschema"
 	"github.com/Eitol/terraform-internals/pkg/instances"
 	"github.com/Eitol/terraform-internals/pkg/lang/blocktoattr"
 	"github.com/Eitol/terraform-internals/pkg/tfdiags"
+	"github.com/hashicorp/hcl/v2"
+	"github.com/hashicorp/hcl/v2/ext/dynblock"
+	"github.com/hashicorp/hcl/v2/hcldec"
 	"github.com/zclconf/go-cty/cty"
 	"github.com/zclconf/go-cty/cty/convert"
 )
@@ -259,8 +259,9 @@ func (s *Scope) evalContext(refs []*addrs.Reference, selfAddr addrs.Referenceabl
 	// First we'll do static validation of the references. This catches things
 	// early that might otherwise not get caught due to unknown values being
 	// present in the scope during planning.
-	if staticDiags := s.Data.StaticValidateReferences(refs, selfAddr); staticDiags.HasErrors() {
-		diags = diags.Append(staticDiags)
+	staticDiags := s.Data.StaticValidateReferences(refs, selfAddr)
+	diags = diags.Append(staticDiags)
+	if staticDiags.HasErrors() {
 		return ctx, diags
 	}
 
@@ -296,7 +297,7 @@ func (s *Scope) evalContext(refs []*addrs.Reference, selfAddr addrs.Referenceabl
 					// this codepath doesn't really "know about". If the "self"
 					// object starts being supported in more contexts later then
 					// we'll need to adjust this message.
-					Detail:  `The "self" object is not available in this context. This object can be used only in resource provisioner and connection blocks.`,
+					Detail:  `The "self" object is not available in this context. This object can be used only in resource provisioner, connection, and postcondition blocks.`,
 					Subject: ref.SourceRange.ToHCL().Ptr(),
 				})
 				continue

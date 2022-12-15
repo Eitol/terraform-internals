@@ -3,9 +3,9 @@ package configload
 import (
 	"fmt"
 
+	"github.com/Eitol/terraform-internals/pkg/configs"
 	version "github.com/hashicorp/go-version"
 	"github.com/hashicorp/hcl/v2"
-	"github.com/Eitol/terraform-internals/pkg/configs"
 )
 
 // LoadConfig reads the Terraform module in the given directory and uses it as the
@@ -60,8 +60,11 @@ func (l *Loader) moduleWalkerLoad(req *configs.ModuleRequest) (*configs.Module, 
 
 	var diags hcl.Diagnostics
 
-	// Check for inconsistencies between manifest and config
-	if req.SourceAddr.String() != record.SourceAddr {
+	// Check for inconsistencies between manifest and config.
+
+	// We ignore a nil SourceAddr here, which represents a failure during
+	// configuration parsing, and will be reported in a diagnostic elsewhere.
+	if req.SourceAddr != nil && req.SourceAddr.String() != record.SourceAddr {
 		diags = append(diags, &hcl.Diagnostic{
 			Severity: hcl.DiagError,
 			Summary:  "Module source has changed",

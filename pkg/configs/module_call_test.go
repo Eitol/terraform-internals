@@ -4,9 +4,9 @@ import (
 	"io/ioutil"
 	"testing"
 
+	"github.com/Eitol/terraform-internals/pkg/addrs"
 	"github.com/go-test/deep"
 	"github.com/hashicorp/hcl/v2"
-	"github.com/Eitol/terraform-internals/pkg/addrs"
 )
 
 func TestLoadModuleCall(t *testing.T) {
@@ -45,7 +45,7 @@ func TestLoadModuleCall(t *testing.T) {
 		{
 			Name: "bar",
 			SourceAddr: addrs.ModuleSourceRegistry{
-				PackageAddr: addrs.ModuleRegistryPackage{
+				Package: addrs.ModuleRegistryPackage{
 					Host:         addrs.DefaultModuleRegistryHost,
 					Namespace:    "hashicorp",
 					Name:         "bar",
@@ -68,7 +68,7 @@ func TestLoadModuleCall(t *testing.T) {
 		{
 			Name: "baz",
 			SourceAddr: addrs.ModuleSourceRemote{
-				PackageAddr: addrs.ModulePackage("git::https://example.com/"),
+				Package: addrs.ModulePackage("git::https://example.com/"),
 			},
 			SourceAddrRaw: "git::https://example.com/",
 			SourceSet:     true,

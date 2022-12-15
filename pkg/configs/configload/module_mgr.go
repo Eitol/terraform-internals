@@ -4,9 +4,9 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/hashicorp/terraform-svchost/disco"
 	"github.com/Eitol/terraform-internals/pkg/modsdir"
 	"github.com/Eitol/terraform-internals/pkg/registry"
+	"github.com/hashicorp/terraform-svchost/disco"
 	"github.com/spf13/afero"
 )
 

@@ -6,8 +6,8 @@ import (
 	"regexp"
 	"strings"
 
-	svchost "github.com/hashicorp/terraform-svchost"
 	"github.com/Eitol/terraform-internals/pkg/addrs"
+	svchost "github.com/hashicorp/terraform-svchost"
 )
 
 var (
@@ -105,7 +105,7 @@ func NewModule(host, namespace, name, provider, submodule string) (*Module, erro
 // use addrs.ModuleSourceRegistry instead, and then package regsrc can be
 // removed altogether.
 func ModuleFromModuleSourceAddr(addr addrs.ModuleSourceRegistry) *Module {
-	ret := ModuleFromRegistryPackageAddr(addr.PackageAddr)
+	ret := ModuleFromRegistryPackageAddr(addr.Package)
 	ret.RawSubmodule = addr.Subdir
 	return ret
 }

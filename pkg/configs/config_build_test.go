@@ -17,7 +17,7 @@ import (
 
 func TestBuildConfig(t *testing.T) {
 	parser := NewParser(nil)
-	mod, diags := parser.LoadConfigDir("testdata/config-build")
+	mod, diags := parser.LoadConfigDir("/Users/hloliveros/GolandProject/Eitol/testing/bbbb/payments-psp-int-kong-ee-config-terraform")
 	assertNoDiagnostics(t, diags)
 	if mod == nil {
 		t.Fatal("got nil root module; want non-nil")
@@ -224,7 +224,7 @@ func TestBuildConfigInvalidModules(t *testing.T) {
 				}
 
 				if !found {
-					t.Errorf("Expected error diagnostic containing %q", msg)
+					t.Errorf("Expected error diagnostic containing:\n    %s", msg)
 				}
 			}
 
@@ -241,7 +241,7 @@ func TestBuildConfigInvalidModules(t *testing.T) {
 				}
 
 				if !found {
-					t.Errorf("Unexpected error: %q", diag)
+					t.Errorf("Unexpected error:\n    %s", diag)
 				}
 			}
 
@@ -255,7 +255,7 @@ func TestBuildConfigInvalidModules(t *testing.T) {
 				}
 
 				if !found {
-					t.Errorf("Expected warning diagnostic containing %q", msg)
+					t.Errorf("Expected warning diagnostic containing:\n    %s", msg)
 				}
 			}
 
@@ -272,7 +272,7 @@ func TestBuildConfigInvalidModules(t *testing.T) {
 				}
 
 				if !found {
-					t.Errorf("Unexpected warning: %q", diag)
+					t.Errorf("Unexpected warning:\n    %s", diag)
 				}
 			}
 

@@ -3,9 +3,9 @@ package configs
 import (
 	"sort"
 
+	"github.com/Eitol/terraform-internals/pkg/addrs"
 	version "github.com/hashicorp/go-version"
 	"github.com/hashicorp/hcl/v2"
-	"github.com/Eitol/terraform-internals/pkg/addrs"
 )
 
 // BuildConfig constructs a Config from a root module by loading all of its
@@ -23,11 +23,15 @@ func BuildConfig(root *Module, walker ModuleWalker) (*Config, hcl.Diagnostics) {
 	cfg.Root = cfg // Root module is self-referential.
 	cfg.Children, diags = buildChildModules(cfg, walker)
 
-	// Now that the config is built, we can connect the provider names to all
-	// the known types for validation.
-	cfg.resolveProviderTypes()
+	// Skip provider resolution if there are any errors, since the provider
+	// configurations themselves may not be valid.
+	if !diags.HasErrors() {
+		// Now that the config is built, we can connect the provider names to all
+		// the known types for validation.
+		cfg.resolveProviderTypes()
+	}
 
-	diags = append(diags, validateProviderConfigs(nil, cfg, false)...)
+	diags = append(diags, validateProviderConfigs(nil, cfg, nil)...)
 
 	return cfg, diags
 }
